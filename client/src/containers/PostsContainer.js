@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Post from '../components/Post';
+
 class PostsContainer extends Component {
   constructor(props) {
     super(props)
@@ -12,20 +14,37 @@ class PostsContainer extends Component {
   componentDidMount() {
     axios.get('http://localhost:3001/api/v1/posts')
     .then(response => {
-        console.log(response)
-        this.setState({
-            posts: response.data
-        }, () => { console.log('This is:', this)})
+      this.setState({ posts: response.data })
     })
     .catch(error => console.log(error))
   }
 
-  render() {
+  renderPosts() {
+    const posts = this.state.posts.data
+
     return (
-      <div className="posts-container">
-          Posts
-      </div>
+      posts.map(post => {
+        return (
+          <div key={post.id}>
+            {post.attributes.body}
+            <Post />
+          </div>
+        )
+      })
     )
+  }
+
+  render() {
+    const posts = this.state.posts.data
+    if (!this.state.posts.data) {
+      return <div>Loading!</div>
+    } else {
+      return (
+        <div className="posts-container">
+          {this.renderPosts()}
+        </div>
+      )
+    }
   }
 }
 

@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Row className="show-grid" style={styles.thirdRow}>
+        <Row className="show-grid">
           <Col xs={6} xsOffset={3}>
             <PostsContainer />
           </Col>

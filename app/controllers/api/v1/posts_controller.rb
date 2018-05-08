@@ -5,9 +5,8 @@ module Api::V1
     # GET /posts
     def index
       @posts = Post.all
-      hash = PostSerializer.new(@posts).serialized_json
-
-      render json: hash
+      # hash = PostSerializer.new(@posts).serialized_json
+      render '/api/v1/posts/index'
     end
 
     # GET /posts/1

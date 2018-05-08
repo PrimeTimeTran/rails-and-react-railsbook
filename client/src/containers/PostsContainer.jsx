@@ -14,28 +14,17 @@ class PostsContainer extends Component {
   componentDidMount() {
     axios.get('http://localhost:3001/api/v1/posts')
     .then(response => {
-      this.setState({ posts: response.data })
+      this.setState({ posts: response.data }, () => console.log('This state', this))
     })
     .catch(error => console.log(error))
   }
 
   renderPosts() {
     const posts = this.state.posts.data
-
-    return (
-      posts.map(post => {
-        return (
-          <div key={post.id}>
-            {post.attributes.body}
-            <Post />
-          </div>
-        )
-      })
-    )
+    return posts.map(post => <div key={post.id}>{post.attributes.body}</div>)
   }
 
   render() {
-    const posts = this.state.posts.data
     if (!this.state.posts.data) {
       return <div>Loading!</div>
     } else {

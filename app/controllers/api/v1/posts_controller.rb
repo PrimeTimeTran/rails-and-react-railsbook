@@ -5,8 +5,10 @@ module Api::V1
     # GET /posts
     def index
       @posts = Post.all
-      # hash = PostSerializer.new(@posts).serialized_json
-      render '/api/v1/posts/index'
+      options = {include: [:comments]}
+      hash = PostSerializer.new(@posts, options).serialized_json
+
+      render json: hash
     end
 
     # GET /posts/1
